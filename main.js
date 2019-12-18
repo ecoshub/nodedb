@@ -126,39 +126,37 @@ const getFromDataBase = (name, dir, start, end, done) => {
 	});
 }
 
-// const delLine = (name, dir, key, value, done) => {
-// 	getFromDataBase(name, dir, (err, arr) => {
-// 		const newArr = [];
-// 		for (let k in arr) {
-// 			let has = false;
-// 			if (arr[k][key] === value){
-// 				has = true;
-// 			}
-// 			if (has === false) {
-// 				newArr.push(arr[k]);
-// 			}
-// 		}
-// 			let file = path.join(dir, name);
-// 			fs.open(file, 'w', function(err, fd) {
-// 				if (err) {
-// 					// console.log('could not open file');
-// 					done(err);
-// 				}
-// 				let str = JSON.stringify(newArr);
-// 				fs.write(fd, str, function(err) {
-// 					if (err) {
-// 						// console.log('error writing file: ' + err);
-// 						done(err);
-// 					}
-// 					fs.close(fd, function() {
-// 						// console.log('wrote the file successfully');
-// 						done(err);
-// 					});
-// 				});
-// 			});
-// 	})	
-// }
+const delFromDataBase = (name, dir, key, value, done) => {
+	getFromDataBase(name, dir, 0, 0, (err, arr) => {
+		const newArr = [];
+		for (let k in arr) {
+			let has = false;
+			if (arr[k][key] === value){
+				has = true;
+			}
+			if (has === false) {
+				newArr.push(arr[k]);
+			}
+		}
+			let file = path.join(dir, name);
+			fs.open(file, 'w', function(err, fd) {
+				if (err) {
+					done(err);
+				}
+				let str = JSON.stringify(newArr);
+				fs.write(fd, str, function(err) {
+					if (err) {
+						done(err);
+					}
+					fs.close(fd, function() {
+						done(err);
+					});
+				});
+			});
+	})	
+}
 
 module.exports.writeToDataBase = writeToDataBase
 module.exports.writeToDataBaseArray = writeToDataBaseArray
 module.exports.getFromDataBase = getFromDataBase
+module.exports.delFromDataBase = delFromDataBase
