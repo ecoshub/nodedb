@@ -156,7 +156,15 @@ const deleteFromDataBase = (name, dir, key, value, done) => {
 	})	
 }
 
+const deleteDataBase = (name, dir, done) => {
+	let file = path.join(dir, name);
+	fs.unlink(file, err => {
+		done(err);
+	}); 
+}
+
 module.exports.writeToDataBase = writeToDataBase
 module.exports.writeToDataBaseArray = writeToDataBaseArray
 module.exports.getFromDataBase = getFromDataBase
 module.exports.deleteFromDataBase = deleteFromDataBase
+module.exports.deleteDataBase = deleteDataBase
