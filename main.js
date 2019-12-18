@@ -11,7 +11,6 @@ const writeToDataBase = (name, dir, input, done) => {
 		dir = path.join(os.homedir(), 'Documents');
 	}
 	let file = path.join(dir, name);
-	// console.log('file', file)
 	fs.exists(file, (err) => {
 		let exists = err ? true : false;
 		if (exists) {
@@ -25,11 +24,8 @@ const writeToDataBase = (name, dir, input, done) => {
 				if (reader !== ''){
 					arr = JSON.parse(reader);
 				}
-				// console.log(arr);
 				arr.push(input);
-				// console.log(arr)
 				str = JSON.stringify(arr);
-				// console.log(str)
 				fs.open(file, 'w', function(err, fd) {
 					if (err) {
 						done(err);
@@ -45,10 +41,8 @@ const writeToDataBase = (name, dir, input, done) => {
 				});
 			});
 		}else{
-			// file not exist create.
 			fs.open(file, 'w', function(err, fd) {
 				if (err) {
-					// console.log('could not open file');
 					done(err);
 				}
 				let arr = [];
@@ -57,11 +51,9 @@ const writeToDataBase = (name, dir, input, done) => {
 				// write
 				fs.write(fd, str, function(err) {
 					if (err) {
-						// console.log('error writing file: ' + err);
 						done(err);
 					}
 					fs.close(fd, function() {
-						// console.log('wrote the file successfully');
 						done(err);
 					});
 				});

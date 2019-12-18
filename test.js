@@ -1,8 +1,8 @@
 const main = require('./main.js')
 
-let name = 'qwe.json';
-let dir = 'desk';
-let input = {"event":"test","no":5};
+let name = 'test.json';
+let dir = '';
+let input = {"event":"test","no":13};
 
 // main.writeToDataBase(name, dir, input, ()=>{});
 
