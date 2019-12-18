@@ -6,7 +6,7 @@ let input = {"event":"test","no":13};
 
 // main.writeToDataBase(name, dir, input, ()=>{});
 
-main.delFromDataBase(name, dir, 'name', 'emre', (err) => {
+main.deleteFromDataBase(name, dir, 'name', 'emre', (err) => {
 	main.getFromDataBase(name, dir, 0, 0, (err, arr, len) => {
 		console.log(err);
 		console.log(arr);

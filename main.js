@@ -126,7 +126,7 @@ const getFromDataBase = (name, dir, start, end, done) => {
 	});
 }
 
-const delFromDataBase = (name, dir, key, value, done) => {
+const deleteFromDataBase = (name, dir, key, value, done) => {
 	getFromDataBase(name, dir, 0, 0, (err, arr) => {
 		const newArr = [];
 		for (let k in arr) {
@@ -159,4 +159,4 @@ const delFromDataBase = (name, dir, key, value, done) => {
 module.exports.writeToDataBase = writeToDataBase
 module.exports.writeToDataBaseArray = writeToDataBaseArray
 module.exports.getFromDataBase = getFromDataBase
-module.exports.delFromDataBase = delFromDataBase
+module.exports.deleteFromDataBase = deleteFromDataBase
