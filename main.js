@@ -106,16 +106,23 @@ const getFromDataBase = (name, dir, start, end, done) => {
 				}
 				const slice = [];
 				const lenarr = arr.length;
-				var count = 0
-				if (start === 0 && end === 0){
+				if (start == 0 && end == 0){
 					done(err, arr, lenarr);
 				}else{
 					if (lenarr < start ){
 						done(err, [], 0);
 					}else{
-						for (var i = start; i < lenarr - 1; i++) {
-							slice.push(arr[i]);
-							count++
+						let count = 0
+						if (end > lenarr) {
+							for (var i = start; i < lenarr - 1; i++) {
+								slice.push(arr[i]);
+								count++
+							}
+						}else{
+							for (var i = start; i < end; i++) {
+								slice.push(arr[i]);
+								count++
+							}
 						}
 						done(err, slice, count);
 					}

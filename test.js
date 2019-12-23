@@ -51,7 +51,7 @@ const arr = [
 // })
 
 // main.writeToDataBaseArray(name, dir, arr, ()=>{
- main.getFromDataBase(name, dir, 60, 70, (err, arr, len) => {
+ main.getFromDataBase(name, dir, 0, 20, (err, arr, len) => {
      console.log(err);
      console.log(arr);
      console.log(len);
