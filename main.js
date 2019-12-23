@@ -110,7 +110,7 @@ const getFromDataBase = (name, dir, start, end, done) => {
 					done(err, arr, lenarr);
 				}else{
 					if (lenarr < start ){
-						done(err, [], 0);
+						done(err, [], -1);
 					}else{
 						let count = 0
 						if (end > lenarr) {
