@@ -74,7 +74,7 @@ const reqSave = (name, dir, arr, len, index, done) => {
 	writeToDataBase(name, dir, arr[index], (err) => {
 		index++
 		if (index !== len) {
-			reqSave(arr, len, index, () => {
+			reqSave(name, dir, arr, len, index, () => {
 				done(err);
 			});
 		}else{
