@@ -18,14 +18,16 @@ const writeToDataBase = (name, dir, input, done) => {
 				if (err) {
 					done(err);
 				}
-				let arr = [];
+				let arrExist = [];
+				let arrNew = [];
 				let str = '';
 				let reader = fs.readFileSync(file, 'utf8');
+				arrNew.push(input);
 				if (reader !== ''){
-					arr = JSON.parse(reader);
+					arrExist = JSON.parse(reader);
 				}
-				arr.push(input);
-				str = JSON.stringify(arr);
+				arrNew = arrNew.concat(arrExist);
+				str = JSON.stringify(arrNew);
 				fs.open(file, 'w', function(err, fd) {
 					if (err) {
 						done(err);
@@ -47,8 +49,8 @@ const writeToDataBase = (name, dir, input, done) => {
 				}
 				let arr = [];
 				arr.push(input);
+				arr = arr.reverse();
 				let str = JSON.stringify(arr);
-				// write
 				fs.write(fd, str, function(err) {
 					if (err) {
 						done(err);
@@ -65,6 +67,7 @@ const writeToDataBase = (name, dir, input, done) => {
 const writeToDataBaseArray = (name, dir, arr, done) => {
 	let len = arr.length;
 	let index = 0;
+
 	reqSave(name, dir, arr, len, index, (err) => {
 		done(err);
 	});
@@ -109,7 +112,7 @@ const getFromDataBase = (name, dir, start, end, done) => {
 				if (start == 0 && end == 0){
 					done(err, arr, lenarr);
 				}else{
-					if (lenarr < start ){
+					if (lenarr <= start ){
 						done(err, [], -1);
 					}else{
 						let count = 0
