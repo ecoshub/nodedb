@@ -117,7 +117,7 @@ const getFromDataBase = (name, dir, start, end, done) => {
 					}else{
 						let count = 0
 						if (end > lenarr) {
-							for (var i = start; i < lenarr - 1; i++) {
+							for (var i = start; i <= lenarr - 1; i++) {
 								slice.push(arr[i]);
 								count++
 							}
@@ -136,6 +136,56 @@ const getFromDataBase = (name, dir, start, end, done) => {
 			done(false, arr, 0)
 		}
 	});
+}
+
+const getFromDataBaseSync = (name, dir, start, end) => {
+	if (dir === 'desk'){
+		dir = path.join(os.homedir(), 'Desktop');
+	}else if (dir === 'down'){
+		dir = path.join(os.homedir(), 'Downloads');
+	}else if (dir === 'docu'){
+		dir = path.join(os.homedir(), 'Documents');
+	}
+	let file = path.join(dir, name);
+	let exist = false
+	try {
+		let stat = fs.statSync(file)
+		exist = true
+	} catch(err) {
+		exist = false
+	}
+	if (exist) {
+		let arr = []
+		let reader = fs.readFileSync(file, 'utf8');
+		if (reader !== ''){
+			arr = JSON.parse(reader);
+		}
+		const slice = [];
+		const lenarr = arr.length;
+		if (start == 0 && end == 0){
+			return {done:true, arr:arr, len:lenarr}
+		}else{
+			if (lenarr <= start ){
+				return {done:true, arr:[], len:-1}
+			}else{
+				let count = 0
+				if (end > lenarr) {
+					for (var i = start ; i <= lenarr; i++) {
+						slice.push(arr[i]);
+						count++
+					}
+				}else{
+					for (var i = start; i < end; i++) {
+						slice.push(arr[i]);
+						count++
+					}
+				}
+				return {done:true, arr:slice, len:count}
+			}
+		}
+	}else{
+		return {done:false, arr:[], len:-2}
+	}
 }
 
 const deleteFromDataBase = (name, dir, key, value, done) => {
@@ -175,8 +225,11 @@ const deleteDataBase = (name, dir, done) => {
 	}); 
 }
 
-module.exports.writeToDataBase = writeToDataBase
-module.exports.writeToDataBaseArray = writeToDataBaseArray
-module.exports.getFromDataBase = getFromDataBase
-module.exports.deleteFromDataBase = deleteFromDataBase
-module.exports.deleteDataBase = deleteDataBase
+module.exports = {
+	writeToDataBase: writeToDataBase,
+	writeToDataBaseArray: writeToDataBaseArray,
+	getFromDataBase: getFromDataBase,
+	getFromDataBaseSync: getFromDataBaseSync,
+	deleteFromDataBase: deleteFromDataBase,
+	deleteDataBase: deleteDataBase
+}
