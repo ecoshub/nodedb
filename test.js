@@ -80,6 +80,10 @@ let input = {"event":"test","no":0};
 //     return localData ? JSON.parse(localData) : [];
 //   });
 
+console.log("1")
 
 var result = main.getFromDataBaseSync(name, dir, 0, 10);
 console.log(result)
+
+console.log("2")
+
