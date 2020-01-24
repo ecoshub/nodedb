@@ -80,10 +80,10 @@ let input = {"event":"test","no":0};
 //     return localData ? JSON.parse(localData) : [];
 //   });
 
-console.log("1")
 
-var result = main.getFromDataBaseSync(name, dir, 0, 10);
+var result = main.getBlockFromDataBaseSync(name, dir, "lastname", "Wollaston", 10, 0);
 console.log(result)
 
-console.log("2")
+var result = main.getBlockFromDataBaseWithKeySync(name, dir, "lastname", "Hudson", "gender", "Female", 5, 5);
+console.log(result)
 
