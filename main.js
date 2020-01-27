@@ -201,7 +201,6 @@ const findFromDataBaseSync = (name, dir, keys, value) => {
 			arr = JSON.parse(reader);
 		}
 		let mainObject = {};
-		// let temp = [];
 		let count = 0; 
 		for (var i = 0; i < arr.length; i++) {
 			for (var j = 0; j < keys.length; j++) {
@@ -215,7 +214,6 @@ const findFromDataBaseSync = (name, dir, keys, value) => {
 						}
 						arr[i][currKey] = addSpan(arr[i][currKey], value, start);
 						mainObject[i] = arr[i];
-						// temp.push(i);
 						count++;
 						if (i < arr.length - 1){
 							mainObject[i + 1] = arr[i + 1];
@@ -252,7 +250,7 @@ const findFromDataBaseSync = (name, dir, keys, value) => {
 		}
 		return { done: true, arr: finalArray};
 	}
-	return { done: false, arr: [], indices : []};
+	return { done: false, arr: []};
 }
 
 
