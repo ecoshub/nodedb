@@ -81,9 +81,11 @@ let input = {"event":"test","no":0};
 //   });
 
 
-var result = main.getBlockFromDataBaseSync(name, dir, "lastname", "Wollaston", 10, 0);
-console.log(result)
+// var result = main.getBlockFromDataBaseSync(name, dir, "lastname", "Wollaston", 10, 0);
+// console.log(result)
 
-var result = main.getBlockFromDataBaseWithKeySync(name, dir, "lastname", "Hudson", "gender", "Female", 5, 5);
-console.log(result)
+// var result = main.getBlockFromDataBaseWithKeySync(name, dir, "lastname", "Hudson", "gender", "Female", 5, 5);
+// console.log(result)
 
+var result = main.findFromDataBaseSync(name, dir, "name", "eco", 0, 0);
+console.log(result)
