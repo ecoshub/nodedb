@@ -87,5 +87,5 @@ let input = {"event":"test","no":0};
 // var result = main.getBlockFromDataBaseWithKeySync(name, dir, "lastname", "Hudson", "gender", "Female", 5, 5);
 // console.log(result)
 
-var result = main.findFromDataBaseSync(name, dir, "name", "eco", 0, 0);
+var result = main.findFromDataBaseSync(name, dir, ["name","lastname"], "eco");
 console.log(result)
