@@ -248,6 +248,7 @@ const findFromDataBaseSync = (name, dir, keys, value) => {
 		if (tempArr.length !== 0 ){
 			finalArray.push(tempArr)
 		}
+		console.log(finalArray)
 		return { done: true, arr: finalArray};
 	}
 	return { done: false, arr: []};
