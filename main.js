@@ -184,6 +184,70 @@ const getFromDataBaseSync = (name, dir, start, end) => {
   }
 };
 
+const findFromDataBaseSync = (name, dir, key, value, up, below) => {
+  dir = preProcess(dir);
+  let file = path.join(dir, name);
+  let exist = false;
+  try {
+    let stat = fs.statSync(file);
+    exist = true;
+  } catch (err) {
+    exist = false;
+  }
+  if (exist) {
+    let arr = [];
+    let reader = fs.readFileSync(file, 'utf8');
+    if (reader !== '') {
+      arr = JSON.parse(reader);
+    }
+    let mainObject = {};
+    let temp = [];
+    let count = 0; 
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i][key] != null && arr[i][key] != undefined) {
+        let start = arr[i][key].toLowerCase().indexOf(value.toLowerCase());
+        if (start !== -1) {
+          if (i > 0 ){
+            mainObject[i - 1] = arr[i - 1];
+            count++;
+          }
+          arr[i][key] = addSpan(arr[i][key], value, start);
+          mainObject[i] = arr[i];
+          temp.push(i);
+          count++;
+          if (i < arr.length - 1){
+            mainObject[i + 1] = arr[i + 1];
+            count++;
+          }
+        }
+      }
+    }
+    // cleaning
+    const finalArray = [];
+    let base = [];
+    const keys = Object.keys(mainObject);
+    for ( var i = 0 ; i < keys.length ; i ++ ){
+      finalArray.push(mainObject[keys[i]])
+      for (var j = 0; j < temp.length; j++) {
+        if (temp[j] == keys[i]){
+          base.push(i);
+        }
+      }
+    }
+    return { done: true, arr: finalArray, indices : base};
+  }
+  return { done: false, arr: [], indices : []};
+}
+
+
+const addSpan = (str, value, index) => {
+  let lenval = value.length;
+  const start = `<span class="highlight">`;
+  const end = `</span>`;
+  return str.slice(0,index) + start + value + end + str.slice(index + lenval, str.length);
+}
+
+
 const getBlockFromDataBaseSync = (name, dir, key, value, up, below) => {
   dir = preProcess(dir)
   let file = path.join(dir, name);
@@ -338,6 +402,7 @@ const writeObject = (name, dir, data) => {
 };
 
 module.exports = {
+  findFromDataBaseSync: findFromDataBaseSync,
   getBlockFromDataBaseWithKeySync: getBlockFromDataBaseWithKeySync,
   getBlockFromDataBaseSync: getBlockFromDataBaseSync,
   writeToDataBase: writeToDataBase,
