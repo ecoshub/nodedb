@@ -182,7 +182,7 @@ const getFromDataBaseSync = (name, dir, start, end) => {
 	} else {
 		return { done: false, arr: [], len: -2 };
 	}
-};
+}
 
 const findFromDataBaseSync = (name, dir, keys, value) => {
 	dir = preProcess(dir);
@@ -232,7 +232,7 @@ const findFromDataBaseSync = (name, dir, keys, value) => {
 					tempArr.push(mainObject[objKeys[i]]);
 				}else{
 					tempArr.push(mainObject[objKeys[i]]);
-					finalArray.push(tempArr)
+					finalArray.push(tempArr);
 					tempArr = [];
 				}
 			}else{
@@ -240,13 +240,13 @@ const findFromDataBaseSync = (name, dir, keys, value) => {
 					tempArr.push(mainObject[objKeys[i]]);
 				}else{
 					tempArr.push(mainObject[objKeys[i]]);
-					finalArray.push(tempArr)
+					finalArray.push(tempArr);
 					tempArr = [];
 				}
 			}
 		}
 		if (tempArr.length !== 0 ){
-			finalArray.push(tempArr)
+			finalArray.push(tempArr);
 		}
 		console.log(finalArray)
 		return { done: true, arr: finalArray};
