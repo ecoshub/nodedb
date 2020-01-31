@@ -43,14 +43,6 @@ let input = {"event":"test","no":0};
 // const arr = [{"event":"test","no":1},{"event":"test","no":2},{"event":"test","no":3},{"event":"test","no":4}];
 // main.writeToDataBaseArray(name, dir, arr, ()=>{});
 
-// main.deleteFromDataBase(name, dir, 'name', 'emre', (err) => {
-// 	main.getFromDataBase(name, dir, 0, 0, (err, arr, len) => {
-// 		console.log(err);
-// 		console.log(arr);
-// 		console.log(len);
-// 	});
-// })
-
 // main.writeToDataBaseArray(name, dir, arr, ()=>{
  // main.getFromDataBase(name, dir, 0, 20, (err, arr, len) => {
  //     console.log(err);
@@ -87,5 +79,10 @@ let input = {"event":"test","no":0};
 // var result = main.getBlockFromDataBaseWithKeySync(name, dir, "lastname", "Hudson", "gender", "Female", 5, 5);
 // console.log(result)
 
-var result = main.findFromDataBaseSync(name, dir, ["name","lastname"], "eco");
+// var result = main.findFromDataBaseSync(name, dir, ["name","lastname"], "eco");
+// console.log(result)
+
+main.deleteFromDataBase(name, dir, 'name', 'Ado')
+
+let result = main.getFromDataBaseSync(name, dir, 0, 0);
 console.log(result)
