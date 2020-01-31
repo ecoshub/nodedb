@@ -366,6 +366,9 @@ const getBlockFromDataBaseWithKeySync = (name, dir, mainKey, mainValue, key, val
 
 const deleteFromDataBase = (name, dir, key, value) => {
 	let file = path.join(dir, name);
+	if (!fs.existsSync(file)) {
+		return;
+	}
 	let reader = fs.readFileSync(file, 'utf8');
 	let arr = JSON.parse(reader)
 	const newArr = [];
