@@ -364,34 +364,18 @@ const getBlockFromDataBaseWithKeySync = (name, dir, mainKey, mainValue, key, val
 }
 
 
-const deleteFromDataBase = (name, dir, key, value, done) => {
-	getFromDataBase(name, dir, 0, 0, (err, arr) => {
-		const newArr = [];
-		for (let k in arr) {
-			let has = false;
-			if (arr[k][key] === value) {
-				has = true;
-			}
-			if (has === false) {
-				newArr.push(arr[k]);
-			}
+const deleteFromDataBase = (name, dir, key, value) => {
+	let file = path.join(dir, name);
+	let reader = fs.readFileSync(file, 'utf8');
+	let arr = JSON.parse(reader)
+	const newArr = [];
+	for (let k in arr) {
+		if (arr[k][key] === value) {
+			continue
 		}
-		let file = path.join(dir, name);
-		fs.open(file, 'w', function(err, fd) {
-			if (err) {
-				done(err);
-			}
-			let str = JSON.stringify(newArr);
-			fs.write(fd, str, function(err) {
-				if (err) {
-					done(err);
-				}
-				fs.close(fd, function() {
-					done(err);
-				});
-			});
-		});
-	});
+		newArr.push(arr[k]);
+	}
+	fs.writeFileSync(file, JSON.stringify(newArr));
 };
 
 const deleteDataBase = (name, dir, done) => {
